@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Training } from 'src/app/model/Training.model';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-trainings',
@@ -9,7 +10,7 @@ import { Training } from 'src/app/model/Training.model';
 export class TrainingsComponent implements OnInit {
   listTrainings: Training[] | undefined;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void { 
     this.listTrainings = [
@@ -20,7 +21,6 @@ export class TrainingsComponent implements OnInit {
   }
 
   onAddToCart(training: Training) {
-    console.log(training.name);
-    console.log(training.quantity);
+    this.cartService.addTraining(training); // Utilise la méthode addTraining
   }
 }
