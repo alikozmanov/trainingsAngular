@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Training } from 'src/app/model/Training.model';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -7,10 +8,13 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './trainings.component.html',
   styleUrls: ['./trainings.component.scss']
 })
+
+// Composant de gestion des formations permettant l'affichage et l'ajout dans le panier de formation
 export class TrainingsComponent implements OnInit {
   listTrainings: Training[] | undefined;
+  constructor(private cartService: CartService, private router : Router) { 
 
-  constructor(private cartService: CartService) { }
+  }
 
   ngOnInit(): void { 
     this.listTrainings = [
@@ -22,5 +26,6 @@ export class TrainingsComponent implements OnInit {
 
   onAddToCart(training: Training) {
     this.cartService.addTraining(training); // Utilise la méthode addTraining
+    this.router.navigateByUrl('cart');
   }
 }
