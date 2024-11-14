@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from 'src/app/services/cart.service';
-import { Training } from 'src/app/model/Training.model';
+import { CartService } from './cart.service';
+import { Training } from '../model/Training.model';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
-  cartItems: Training[] = []; // Tableau pour stocker les éléments du panier
 
-  constructor(private cartService: CartService) { }
+
+export class TrainingsComponent implements OnInit {
+  cartItems: Training[] = [];
+  constructor(private cartService: CartService) { 
+
+  }
 
   ngOnInit(): void {
-    // Récupérer les éléments du panier au démarrage
     this.cartItems = this.cartService.getCartItems();
   }
 
@@ -23,4 +25,3 @@ export class CartComponent implements OnInit {
     this.cartItems = this.cartService.getCartItems(); // Mettre à jour la liste après suppression
   }
 }
-

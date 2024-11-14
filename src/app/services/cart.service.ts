@@ -19,5 +19,11 @@ export class CartService {
   getCartItems(): Training[] {
     return this.cart;
   }
-}
 
+  // Méthode pour supprimer une formation du panier
+  removeTraining(trainingId: number): void {
+    // Utiliser === pour une comparaison stricte
+    this.cart = this.cart.filter(item => item.id !== trainingId);
+    console.log(`Formation avec ID ${trainingId} a été supprimée du panier.`);
+  }
+}

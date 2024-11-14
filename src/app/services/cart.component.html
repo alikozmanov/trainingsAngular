@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Contenu du panier</h2>
+    <table class="table table-striped table-hover" *ngIf="cartItems.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Quantité</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="onRemoveFromCart(item.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="cartItems.length === 0">
+      <p>Le panier est vide</p>
+    </div>
+  </div>
+  

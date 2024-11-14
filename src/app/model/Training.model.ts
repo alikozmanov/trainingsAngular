@@ -12,4 +12,4 @@ export class Training {
         this.price = price;
         this.quantity = quantity;
     }
-};
+}

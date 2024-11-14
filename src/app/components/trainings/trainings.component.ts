@@ -8,15 +8,13 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './trainings.component.html',
   styleUrls: ['./trainings.component.scss']
 })
-
-// Composant de gestion des formations permettant l'affichage et l'ajout dans le panier de formation
 export class TrainingsComponent implements OnInit {
-  listTrainings: Training[] | undefined;
-  constructor(private cartService: CartService, private router : Router) { 
+  listTrainings: Training[] = []; // Tableau des formations
 
-  }
+  constructor(private cartService: CartService, private router : Router) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    // Initialisation des données de formations
     this.listTrainings = [
       {id: 1, name: 'Java', description: 'Formation Java SE 8 sur 5 jours', price: 1500, quantity: 1 },
       {id: 2, name: 'DotNet', description: 'Formation DotNet 3 jours', price: 1000, quantity: 1 },
@@ -24,8 +22,9 @@ export class TrainingsComponent implements OnInit {
     ];
   }
 
+  // Méthode pour ajouter une formation au panier
   onAddToCart(training: Training) {
-    this.cartService.addTraining(training); // Utilise la méthode addTraining
-    this.router.navigateByUrl('cart');
+    this.cartService.addTraining(training); // Ajouter la formation au panier
+    this.router.navigateByUrl('cart'); // Rediriger vers le panier
   }
 }
