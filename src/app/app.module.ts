@@ -10,12 +10,14 @@ import { CartComponent } from './components/cart/cart.component';
 
 
 import { FormsModule } from '@angular/forms';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrainingsComponent,
     CartComponent,
+    ConfirmationComponent,
     //OrderComponent,
     //CustomerComponent,
     //NotFoundComponent
