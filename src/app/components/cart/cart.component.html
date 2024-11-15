@@ -23,6 +23,11 @@
           <button class="btn btn-danger" (click)="onRemoveFromCart(item.id)">Supprimer</button>
         </td>
       </tr>
+      <!-- Afficher le total -->
+       <tr>
+        <td colspan="4" class="text-right">total</td>
+        <td colspan="2">{{ calculateTotal() }}</td>
+       </tr>
     </tbody>
   </table>
 </div>

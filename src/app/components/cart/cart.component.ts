@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Training } from 'src/app/model/Training.model';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-cart',
@@ -22,5 +23,9 @@ export class CartComponent implements OnInit {
     this.cartService.removeTraining(trainingId);
     this.cartItems = this.cartService.getCartItems(); // Mettre à jour la liste après suppression
   }
-}
 
+  // Méthode pour calculer le total du panier
+  calculateTotal(): number {
+    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  }
+}
