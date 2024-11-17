@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Training } from 'src/app/model/Training.model';
-import { Router } from '@angular/router'; // Importer le service Router
+import { Router } from '@angular/router'; 
 
 
 @Component({
@@ -12,6 +12,7 @@ import { Router } from '@angular/router'; // Importer le service Router
 export class CartComponent implements OnInit {
   cartItems: Training[] = []; // Tableau pour stocker les éléments du panier
 
+  // Initialise 2 services qui seront utilisé dans se composant
   constructor(private cartService: CartService, private router : Router) { }
 
   ngOnInit(): void {

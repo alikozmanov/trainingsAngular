@@ -11,12 +11,14 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 
 @NgModule({
   declarations: [
+    // Déclaration des composants 
     AppComponent,
     TrainingsComponent,
     CartComponent,
     ConfirmationComponent,
   ],
   imports: [
+     // Modules à importerr dans l'application
     BrowserModule,
     AppRoutingModule,
     FormsModule

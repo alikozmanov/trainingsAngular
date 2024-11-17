@@ -1,3 +1,4 @@
+// Gère la navigation entre les pages via des URL
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TrainingsComponent } from './components/trainings/trainings.component';
