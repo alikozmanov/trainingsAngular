@@ -9,7 +9,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./trainings.component.scss']
 })
 export class TrainingsComponent implements OnInit {
-  listTrainings: Training[] = []; // Tableau des formations
+  listTrainings: Training[] = []; 
 
   constructor(private cartService: CartService, private router : Router) { }
 
@@ -24,7 +24,7 @@ export class TrainingsComponent implements OnInit {
 
   // Méthode pour ajouter une formation au panier
   onAddToCart(training: Training) {
-    this.cartService.addTraining(training); // Ajouter la formation au panier
-    this.router.navigateByUrl('cart'); // Rediriger vers le panier
+    this.cartService.addTraining(training); 
+    this.router.navigateByUrl('cart'); 
   }
 }
