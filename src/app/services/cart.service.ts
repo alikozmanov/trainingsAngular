@@ -5,24 +5,27 @@ import { Training } from 'src/app/model/Training.model';
   providedIn: 'root'
 })
 export class CartService {
-  private cart: Training[] = []; // Tableau pour stocker les éléments ajoutés
+  // Map pour stocker les formations par ID
+  private trainingsMap = new Map<number, Training>();
 
   constructor() { }
 
   // Méthode pour ajouter une formation au panier
   addTraining(training: Training): void {
-    this.cart.push(training);
-    console.log(`${training.name} a été ajouté au panier.`);// Affiche un message dans la console pour confirmation
+    this.trainingsMap.set(training.id, training); // Ajoute la formation à la Map avec son ID
+    console.log(`${training.name} a été ajouté au panier.`); 
   }
 
   // Méthode pour récupérer les éléments du panier
   getCartItems(): Training[] {
-    return this.cart;
+    // Retourne un tableau des valeurs de la Map (les formations)
+    return Array.from(this.trainingsMap.values());
   }
 
   // Méthode pour supprimer une formation du panier
   removeTraining(trainingId: number): void {
-    this.cart = this.cart.filter(item => item.id !== trainingId); // // Supprime la formation avec l'ID 'trainingId' du panier
-    console.log(`Formation avec ID ${trainingId} a été supprimée du panier.`); // // Affiche un message avec l'ID de la formation supprimée
+    this.trainingsMap.delete(trainingId); // Supprime la formation avec l'ID 'trainingId' de la Map
+    console.log(`Formation avec ID ${trainingId} a été supprimée du panier.`); 
   }
 }
+

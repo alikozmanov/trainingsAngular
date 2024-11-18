@@ -23,7 +23,11 @@ export class TrainingsComponent implements OnInit {
   }
 
   // Méthode pour ajouter une formation au panier
-  onAddToCart(training: Training) {
+  onAddToCart(training: Training): void {
+    if (training.quantity < 1 || training.quantity > 10) {
+      alert('Veuillez sélectionner une quantité entre 1 et 10');
+      return;
+    }
     this.cartService.addTraining(training); 
     this.router.navigateByUrl('cart'); 
   }
