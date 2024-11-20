@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Training } from 'src/app/model/Training.model';
+import { ApiService } from 'src/app/services/api.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -10,8 +11,10 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class TrainingsComponent implements OnInit {
   listTrainings: Training[] = []; 
-
-  constructor(private cartService: CartService, private router : Router) { }
+  error: string | null = null; // Variable pour stocker et afficher les erreurs
+  
+    // Le constructeur initialise les services nécessaires pour le composant
+  constructor(private cartService: CartService, private router : Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
     // Initialisation des données de formations
@@ -30,5 +33,15 @@ export class TrainingsComponent implements OnInit {
     }
     this.cartService.addTraining(training); 
     this.router.navigateByUrl('cart'); 
+  }
+
+  // Méthode pour récupérer toutes les formations via l'API
+  getAllTrainings() {
+    this.apiService.getTrainings().subscribe({
+      next : (data: Training[]) => this.listTrainings = data,
+      error : (err: any) => this.error = err.message,
+      complete : () => this.error = null
+      
+    });
   }
 }

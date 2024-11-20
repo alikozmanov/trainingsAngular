@@ -1,31 +1,61 @@
 import { Injectable } from '@angular/core';
-import { Training } from 'src/app/model/Training.model';
+import { Training } from '../model/Training.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  // Map pour stocker les formations par ID
-  private trainingsMap = new Map<number, Training>();
+  private storageKey = 'cartItems';
+  private customerKey = 'customerInfo'; // Nouvelle clé pour les informations client
 
   constructor() { }
 
-  // Méthode pour ajouter une formation au panier
-  addTraining(training: Training): void {
-    this.trainingsMap.set(training.id, training); // Ajoute la formation à la Map avec son ID
-    console.log(`${training.name} a été ajouté au panier.`); 
-  }
-
-  // Méthode pour récupérer les éléments du panier
+  // Gestion des éléments du panier
   getCartItems(): Training[] {
-    // Retourne un tableau des valeurs de la Map (les formations)
-    return Array.from(this.trainingsMap.values());
+    const items = localStorage.getItem(this.storageKey);
+    return items ? JSON.parse(items) : [];
   }
 
-  // Méthode pour supprimer une formation du panier
+  addTraining(training: Training): void {
+    const cartItems = this.getCartItems();
+    const existingItem = cartItems.find(item => item.id === training.id);
+
+    if (existingItem) {
+      existingItem.quantity = training.quantity; // Ecrase la valeur existante dans quantité
+    } else {
+      cartItems.push({ ...training });
+    }
+
+    this.saveCart(cartItems);
+  }
+
   removeTraining(trainingId: number): void {
-    this.trainingsMap.delete(trainingId); // Supprime la formation avec l'ID 'trainingId' de la Map
-    console.log(`Formation avec ID ${trainingId} a été supprimée du panier.`); 
+    const cartItems = this.getCartItems().filter(item => item.id !== trainingId);
+    this.saveCart(cartItems);
+  }
+
+  clearCart(): void {
+    localStorage.removeItem(this.storageKey);
+  }
+
+  private saveCart(cartItems: Training[]): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(cartItems));
+  }
+
+  // Gestion des informations client
+  getCustomer(): any {
+    const customer = localStorage.getItem(this.customerKey);
+    return customer ? JSON.parse(customer) : { name: '', firstName: '', address: '', phone: '', email: '' };
+  }
+
+  saveCustomer(customer: any): void {
+    localStorage.setItem(this.customerKey, JSON.stringify(customer));
+  }
+
+  clearCustomer(): void {
+    localStorage.removeItem(this.customerKey);
   }
 }
+
+
 
