@@ -4,12 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { TrainingsComponent } from './components/trainings/trainings.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { OrderComponent } from './components/order/order.component';
 
 
 const routes: Routes = [
   { path: 'trainings', component: TrainingsComponent }, // Liste des formations
   { path: 'cart', component: CartComponent }, // Panier
   { path: 'confirmation', component: ConfirmationComponent }, // Confirmation de commande
+  { path: 'order', component: OrderComponent }, // Aperçu de la commande
   { path: '', redirectTo: 'trainings', pathMatch: 'full' }, // Redirection vers formations par défaut
 ];
 

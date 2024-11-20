@@ -22,5 +22,11 @@ export class ConfirmationComponent implements OnInit {
     this.cartService.saveCustomer(formData); // Sauvegarde via le service
     console.log('Customer saved:', formData);
     alert('Informations client enregistrées avec succès');
+    this.router.navigateByUrl('/order');
   }
+
+  onProceedToOrder(): void {
+    // Redirige vers l'aperçu de la commande
+    this.router.navigateByUrl('/order');
+  }  
 }

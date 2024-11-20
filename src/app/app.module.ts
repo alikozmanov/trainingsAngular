@@ -9,6 +9,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { OrderComponent } from './components/order/order.component';
+import { ModalOrderComponent } from './components/order/modal-order/modal-order.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { RouterModule } from '@angular/router';
     TrainingsComponent,
     CartComponent,
     ConfirmationComponent,
+    OrderComponent,
+    ModalOrderComponent,
   ],
   imports: [
     BrowserModule,
