@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Training } from 'src/app/model/Training.model';
 import { Router } from '@angular/router'; 
-
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,32 +10,40 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cartItems: Training[] = []; // Tableau pour stocker les éléments du panier
+  cartItems: Training[] = [];
 
-  // Initialise 2 services qui seront utilisé dans se composant
-  constructor(private cartService: CartService, private router : Router) { }
+   // Injection des services 
+  constructor(
+    private cartService: CartService, 
+    private router: Router, 
+    private authService: AuthService
+  ) { }
 
+   // Méthode appelée au démarrage du composant
   ngOnInit(): void {
-    // Récupérer les éléments du panier au démarrage
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/auth']); // Redirige vers la page de connexion si non connecté
+    } else {
+      this.cartItems = this.cartService.getCartItems(); // si, connecté récupérer les articles
+    }
+  }
+
+   // Méthode appelée pour supprimer
+  onRemoveFromCart(trainingId: number): void {
+    this.cartService.removeTraining(trainingId);
     this.cartItems = this.cartService.getCartItems();
   }
 
-  // Méthode pour supprimer un article du panier
-  onRemoveFromCart(trainingId: number): void {
-    this.cartService.removeTraining(trainingId);
-    this.cartItems = this.cartService.getCartItems(); // Mettre à jour la liste après suppression
-  }
-
-  // Méthode pour calculer le total du panier
+  // Méthode pour calculer 
   calculateTotal(): number {
     return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
-  // Méthode du bouton Commander
+  // Méthode appelée lors de la commande (achat)
   onOrder(): void {
-    if(this.cartItems.length > 0) {
-      alert('Commande passée avec succès')
-      this.router.navigate(['/confirmation'])
+    if (this.cartItems.length > 0) {
+      alert('Commande passée avec succès');
+      this.router.navigate(['/confirmation']);
     }
   }
 }

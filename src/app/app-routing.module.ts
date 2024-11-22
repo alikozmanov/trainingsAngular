@@ -5,6 +5,7 @@ import { TrainingsComponent } from './components/trainings/trainings.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { OrderComponent } from './components/order/order.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent }, // Panier
   { path: 'confirmation', component: ConfirmationComponent }, // Confirmation de commande
   { path: 'order', component: OrderComponent }, // Aperçu de la commande
+  { path: 'auth', component: AuthComponent }, // Authentification
   { path: '', redirectTo: 'trainings', pathMatch: 'full' }, // Redirection vers formations par défaut
 ];
 

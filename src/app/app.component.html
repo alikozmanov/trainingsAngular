@@ -1,19 +1,23 @@
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
-
-<a class="navbar-brand" href="#">TRAININGS</a>
-
-<ul class="navbar-nav">
-  <li class="nav-item">
-    <!-- routerLink permet de naviguer sans recharger la page -->
-    <a class="nav-link" routerLink="/trainings">Liste des Formations</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLink="/cart">Contenu du panier</a>
-  </li>
-  <!-- <li class="nav-item">
-    <a class="nav-link" routerLink="/order">Aperçu de la commande</a>
-  </li> -->
-</ul>
+  <a class="navbar-brand" href="#">TRAININGS</a>
+  <ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/trainings">Liste des Formations</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/cart">Contenu du panier</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ms-auto">
+    <li *ngIf="authService.isLoggedIn()" class="nav-item">
+      <button class="btn btn-link nav-link" (click)="onLogout()">Déconnexion</button>
+    </li>
+    <li *ngIf="!authService.isLoggedIn()" class="nav-item">
+      <a class="nav-link" routerLink="/auth">Connexion</a>
+    </li>
+  </ul>
 </nav>
+
+
 <!-- Affiche le contenu en fonction de la route -->
 <router-outlet></router-outlet>
