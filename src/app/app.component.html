@@ -10,14 +10,16 @@
   </ul>
   <ul class="navbar-nav ms-auto">
     <li *ngIf="authService.isLoggedIn()" class="nav-item">
-      <button class="btn btn-link nav-link" (click)="onLogout()">Déconnexion</button>
+      <span class="nav-link text-success">Bienvenue, <span class="text-primary">{{ authService.getCurrentUser()?.email }}</span></span>
+    </li>
+    <li *ngIf="authService.isLoggedIn()" class="nav-item">
+      <button class="btn btn-danger nav-link" (click)="onLogout()">Déconnexion</button>
     </li>
     <li *ngIf="!authService.isLoggedIn()" class="nav-item">
       <a class="nav-link" routerLink="/auth">Connexion</a>
     </li>
   </ul>
 </nav>
-
 
 <!-- Affiche le contenu en fonction de la route -->
 <router-outlet></router-outlet>

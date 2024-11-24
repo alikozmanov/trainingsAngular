@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { EncryptionService } from './encryption.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private users = [
@@ -11,12 +12,31 @@ export class AuthService {
 
   private currentUser: any = null;
 
-  constructor() {
-    // Récupérer l'utilisateur connecté 
+  constructor(private encryptionService: EncryptionService) {
+    // Récupérer l'utilisateur connecté
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
-      this.currentUser = JSON.parse(storedUser);
+      this.currentUser = this.encryptionService.decryptData(storedUser);
     }
+  }
+
+  // Connexion de l'utilisateur
+  login(email: string, password: string): boolean {
+    const user = this.users.find((u) => u.email === email && u.password === password);
+    if (user) {
+      this.currentUser = user;
+      // Enregistrer l'utilisateur crypté dans le localStorage
+      const encryptedData = this.encryptionService.encryptData(this.currentUser);
+      localStorage.setItem('currentUser', encryptedData);
+      return true;
+    }
+    return false;
+  }
+
+  // Déconnexion
+  logout(): void {
+    this.currentUser = null;
+    localStorage.removeItem('currentUser'); // Retirer les données chiffrées
   }
 
   // Vérifie si l'utilisateur est connecté
@@ -24,32 +44,8 @@ export class AuthService {
     return !!this.currentUser;
   }
 
-  // Connexion de l'utilisateur
-  login(email: string, password: string): boolean {
-    const user = this.users.find(u => u.email === email && u.password === password);
-    if (user) {
-      this.currentUser = user;
-      // Enregistrer l'utilisateur dans le localStorage
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-      return true;
-    }
-    return false;
-  }
-
   // Récupérer l'utilisateur connecté
   getCurrentUser(): any {
     return this.currentUser;
-  }
-
-  // Déconnexion
-  logout(): void {
-    this.currentUser = null;
-    // Retirer l'utilisateur 
-    localStorage.removeItem('currentUser');
-  }
-
-  // Vérifie si l'utilisateur est connecté
-  isAuthenticated(): boolean {
-    return this.currentUser !== null;
   }
 }

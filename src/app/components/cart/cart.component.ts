@@ -22,9 +22,9 @@ export class CartComponent implements OnInit {
    // Méthode appelée au démarrage du composant
   ngOnInit(): void {
     if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['/auth']); // Redirige vers la page de connexion si non connecté
+      this.router.navigate(['/auth']); 
     } else {
-      this.cartItems = this.cartService.getCartItems(); // si, connecté récupérer les articles
+      this.cartItems = this.cartService.getCartItems(); 
     }
   }
 
