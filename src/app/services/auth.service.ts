@@ -6,8 +6,8 @@ import { EncryptionService } from './encryption.service';
 })
 export class AuthService {
   private users = [
-    { email: 'elbab@gmail.com', password: '1234', roles: ['ADMIN', 'USER'] },
-    { email: 'hugo@gmail.com', password: '1234', roles: ['USER'] },
+    { email: 'toto@gmail.com', password: '1234', roles: ['ADMIN', 'USER'] },
+    { email: 'tata@gmail.com', password: '1234', roles: ['USER'] },
   ];
 
   private currentUser: any = null;

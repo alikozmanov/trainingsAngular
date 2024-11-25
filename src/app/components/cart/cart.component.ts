@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Training } from 'src/app/model/Training.model';
-import { Router } from '@angular/router'; 
-import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -12,23 +11,18 @@ import { AuthService } from 'src/app/services/auth.service';
 export class CartComponent implements OnInit {
   cartItems: Training[] = [];
 
-   // Injection des services 
+  // Injection des services 
   constructor(
     private cartService: CartService, 
-    private router: Router, 
-    private authService: AuthService
+    private router: Router
   ) { }
 
-   // Méthode appelée au démarrage du composant
+
   ngOnInit(): void {
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['/auth']); 
-    } else {
-      this.cartItems = this.cartService.getCartItems(); 
-    }
+    this.cartItems = this.cartService.getCartItems(); 
   }
 
-   // Méthode appelée pour supprimer
+  // Méthode appelée pour supprimer
   onRemoveFromCart(trainingId: number): void {
     this.cartService.removeTraining(trainingId);
     this.cartItems = this.cartService.getCartItems();

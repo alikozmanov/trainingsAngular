@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { AuthService } from 'src/app/services/auth.service'; // Assurez-vous d'importer le service d'authentification
 
 @Component({
   selector: 'app-order',
@@ -14,11 +15,22 @@ export class OrderComponent implements OnInit {
   modalTitle = 'Commande confirmée';
   modalContent = 'Votre commande a bien été prise en compte, merci de nous avoir donné : ';
   modalData: any;
+  cartItems: any[] = []; // Ajout de la propriété pour stocker les articles du panier
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private cartService: CartService, 
+    private router: Router, 
+    private authService: AuthService // Injection du service d'authentification
+  ) {}
+
 
   ngOnInit(): void {
-    this.order = this.cartService.getOrder();
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/auth']); 
+    } else {
+      this.cartItems = this.cartService.getCartItems(); 
+      this.order = this.cartService.getOrder();
+    }
   }
 
   // Méthode appelée lorsque l'utilisateur confirme la commande
@@ -35,4 +47,3 @@ export class OrderComponent implements OnInit {
     console.log("Back to the future !");
   }
 }
-
